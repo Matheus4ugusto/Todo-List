@@ -1,0 +1,29 @@
+.todo-container{
+    margin: 2rem auto;
+    width: 60%;
+    padding: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+h1{
+    text-align: center;
+}
+
+section{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+input{
+    width: 70%;
+    padding: .5rem;
+}
+
+button{
+    padding: .5rem 1rem;
+    background-color: #00fff7;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
