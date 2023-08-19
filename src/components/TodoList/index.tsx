@@ -3,9 +3,10 @@ import "./todoList.style.css";
 import TodoItem, { iTodoItemProps } from "../TodoItem";
 
 const TodoList = () => {
-  const [todos, setTodos] = useState<iTodoItemProps[]>([
-    { title: "lavar o carro", isComplete: true },
-  ]);
+  const [todos, setTodos] = useState<iTodoItemProps[]>(
+    JSON.parse(localStorage.getItem("todo") as string) ?? []
+    // tambem poderia ser utilizado " || []"
+  );
   const [newTodo, setNewTodo] = useState<string>("");
 
   const handleAddTodoValue = (value: string) => setNewTodo(value);
@@ -17,18 +18,8 @@ const TodoList = () => {
       isComplete: false,
     };
     setTodos([...todos, todoObj]);
+    localStorage.setItem("todo", JSON.stringify([...todos, todoObj]));
     setNewTodo("");
-  };
-
-  const handleCompleteTodo = (index: number) => {
-    const todosCopy = todos.map((todo, idx) => {
-      if (idx === index) {
-        todo.isComplete = true;
-        return todo;
-      }
-      return todo;
-    });
-    setTodos(todosCopy);
   };
 
   return (
@@ -44,13 +35,8 @@ const TodoList = () => {
         <button onClick={handleAddTodo}>Adiciona tarefa</button>
       </section>
       <ul>
-        {todos.map((todo, index) => (
-          <TodoItem
-            key={index}
-            {...todo}
-            index={index}
-            handleCompleteTodo={handleCompleteTodo}
-          />
+        {todos?.map((todo, index) => (
+          <TodoItem key={index} {...todo} index={index} setTodos={setTodos} />
         ))}
       </ul>
     </div>
@@ -58,3 +44,9 @@ const TodoList = () => {
 };
 
 export default TodoList;
+
+//CRIA FUNÇÃO       PERCORRENDO O ARRAY COM O MAP
+// const newTodos = todosCopy.map((todo, todoIndex) =>
+//            CONDICIONAL     RETORNO IF               RETORNO ELSE
+// todoIndex === index ? {...todo, isComplete: true} : todo
+// );
